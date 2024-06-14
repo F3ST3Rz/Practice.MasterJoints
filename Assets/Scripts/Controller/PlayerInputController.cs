@@ -90,7 +90,7 @@ public class PlayerInputController : MonoBehaviour
         if (hitInfo.transform.TryGetComponent(out Swinger swinger) == false)
             return;
 
-        swinger.OnRocking();
+        swinger.Shake();
     }
 
     private void Launch(InputAction.CallbackContext context)

@@ -9,7 +9,15 @@ public class Swinger : MonoBehaviour
 
     private Coroutine _coroutine;
 
-    private IEnumerator Rocking()
+    public void Shake()
+    {
+        if (_coroutine != null)
+            return;
+
+        _coroutine = StartCoroutine(Sway());
+    }
+
+    private IEnumerator Sway()
     {
         var wait = new WaitForSeconds(_delayRocking);
         JointMotor jointMotor = _hingeJoint.motor;
@@ -24,13 +32,5 @@ public class Swinger : MonoBehaviour
         jointMotor.targetVelocity = 0f;
         _hingeJoint.motor = jointMotor;
         _coroutine = null;
-    }
-
-    public void OnRocking()
-    {
-        if (_coroutine != null)
-            return;
-
-        _coroutine = StartCoroutine(Rocking());
     }
 }

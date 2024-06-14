@@ -18,21 +18,6 @@ public class Catapulter : MonoBehaviour
     {
         AddProjectile();
     }
-    private IEnumerator Recharging()
-    {
-        _ScoopRigidbody.WakeUp();
-        _springJoint.spring = _minSpring;
-        yield return new WaitForSeconds(_delayRecharge);
-        AddProjectile();
-        _isStarted = false;
-        _coroutine = null;
-    }
-
-    private void AddProjectile()
-    {
-        Projectile projectile = Instantiate(_prefab);
-        projectile.transform.position = _pointSpawn.position;
-    }
 
     public void Launch()
     {
@@ -53,5 +38,24 @@ public class Catapulter : MonoBehaviour
             return;
 
         _coroutine = StartCoroutine(Recharging());
+    }
+
+    private IEnumerator Recharging()
+    {
+        _ScoopRigidbody.WakeUp();
+        _springJoint.spring = _minSpring;
+
+        yield return new WaitForSeconds(_delayRecharge);
+
+        AddProjectile();
+
+        _isStarted = false;
+        _coroutine = null;
+    }
+
+    private void AddProjectile()
+    {
+        Projectile projectile = Instantiate(_prefab);
+        projectile.transform.position = _pointSpawn.position;
     }
 }
